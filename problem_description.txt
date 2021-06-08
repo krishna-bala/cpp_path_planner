@@ -1,0 +1,16 @@
+Plan a collision-free path for a robot in an  unbounded 2D environment.
+
+1) In the README, describe your assumptions and general approach
+2) Implement your approach in C++
+3) In the README, discuss limitations of your approach, and suggest improvements
+4) If you have time remaining, pick one or two refinements and implement them. Your commit history (or tags or branches) should make it easy for us to find the code that successfully solves the minimal problem, as well as each successive improvement.
+ 
+Input: 
+* list of circular obstacles, as centers and radii.. (x0, y0, rr)
+* list of rectangular obstacles, as lower-left corner and width/height. (x0, y0, dx, dy)
+* starting position (xi, yi)
+* final position (xf, yf)
+(See example input.txt for an example setup. Your solution does not need to conform to this standard, however)
+
+Output:
+* List of (x,y) waypoints, one per line.
