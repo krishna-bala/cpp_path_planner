@@ -28,13 +28,13 @@ struct greater1{
 
 class GraphGenerator {
 public:
-    GraphGenerator(Environment env);
+    GraphGenerator(Environment &env);
     void generateGraph(int num_nodes, double connect_radius);
     double getDist(double dx, double dy);
     // Note: Change adj_list implementation to map<int, vector<int>>.
     //       Keys represent the id for each node, values are a vector of all adjacent node id's
     vector<Node*> adj_list;
-    Environment env;
+    Environment *env;
 
 private:
     static double haltonSampler(int j, int b, pair<double,double> limit);

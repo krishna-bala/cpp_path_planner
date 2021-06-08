@@ -5,13 +5,11 @@
 #include "Environment.h"
 
 Environment::Environment() : config_file("../src/example_input.txt"){
-    std::cout << config_file;
     loadConfig();
 
 }
 
 Environment::Environment(const string &file_name) : config_file(file_name){
-    std::cout << config_file;
     loadConfig();
 }
 

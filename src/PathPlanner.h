@@ -16,14 +16,14 @@
 
 class PathPlanner {
 public:
-    PathPlanner(GraphGenerator graph);
+    PathPlanner(GraphGenerator &graph);
     deque<pair<double,double>> findPathWaypoints(Node* start, Node* end);
     void printWaypoints(deque<pair<double,double>> path);
     Node* getStartNode();
     Node* getGoalNode();
 
 private:
-    GraphGenerator graph;
+    GraphGenerator *graph;
 
 };
 

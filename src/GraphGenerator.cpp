@@ -4,8 +4,8 @@
 
 #include "GraphGenerator.h"
 
-GraphGenerator::GraphGenerator(Environment env) {
-    env = env;
+GraphGenerator::GraphGenerator(Environment &env_) {
+    env = &env_;
     nodes_in_adj_list = 0;
 }
 
@@ -77,8 +77,8 @@ vector<Node> GraphGenerator::sampleNodes(int samples) {
 
 void GraphGenerator::setLimits() {
 
-    pair<double,double> start = env.getStartPos();
-    pair<double,double> end = env.getEndPos();
+    pair<double,double> start = env->getStartPos();
+    pair<double,double> end = env->getEndPos();
 
     pair<double,double> center;
     // First -> xc, Second -> yc
@@ -129,7 +129,7 @@ void GraphGenerator::addNode(Node &node1, double connect_radius) {
 
 Node GraphGenerator::initStartNode(int num_nodes) {
     Node startNode{};
-    pair<double,double> start_pos = env.getStartPos();
+    pair<double,double> start_pos = env->getStartPos();
     startNode.x = start_pos.first;
     startNode.y = start_pos.second;
     startNode.id = num_nodes;
@@ -138,7 +138,7 @@ Node GraphGenerator::initStartNode(int num_nodes) {
 
 Node GraphGenerator::initEndNode(int num_nodes) {
     Node endNode{};
-    pair<double,double> end_pos = env.getEndPos();
+    pair<double,double> end_pos = env->getEndPos();
     endNode.x = end_pos.first;
     endNode.y = end_pos.second;
     endNode.id = num_nodes;
@@ -168,7 +168,7 @@ bool GraphGenerator::evaluateEdge(Node node1, Node node2, double step) {
         y += step_dy;
         point.first = x;
         point.second = y;
-        if (env.inCollision(point)){
+        if (env->inCollision(point)){
             return false;
         }
     }
@@ -181,7 +181,7 @@ vector<bool> GraphGenerator::evaluateStates(const vector<Node>& proposed_nodes) 
 
     for (Node node : proposed_nodes){
         pair<double,double> temp{node.x, node.y};
-        if (env.inCollision(temp)){
+        if (env->inCollision(temp)){
             valid_nodes.push_back(false);
         } else{
             valid_nodes.push_back(true);
@@ -191,7 +191,7 @@ vector<bool> GraphGenerator::evaluateStates(const vector<Node>& proposed_nodes) 
 }
 
 double GraphGenerator::getCostToGo(Node node) {
-    pair<double,double> goal = env.getEndPos();
+    pair<double,double> goal = env->getEndPos();
     double dx, dy;
     dx = goal.first - node.x;
     dy = goal.second - node.y;

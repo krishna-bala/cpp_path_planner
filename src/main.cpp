@@ -11,7 +11,7 @@ int main() {
     // Note: Use default constructor for CLion project
 //    Environment env;
 //    env.printConfig();
-    GraphGenerator graph{env};
+    GraphGenerator graph(env);
     graph.generateGraph(50, 1.0);
     PathPlanner plan(graph);
     Node* startNode = plan.getStartNode();

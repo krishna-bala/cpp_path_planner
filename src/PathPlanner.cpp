@@ -4,7 +4,7 @@
 
 #include "PathPlanner.h"
 
-PathPlanner::PathPlanner(GraphGenerator graph) : graph(graph) {
+PathPlanner::PathPlanner(GraphGenerator &graph) : graph(&graph) {
 }
 
 
@@ -65,7 +65,7 @@ deque<pair<double, double>> PathPlanner::findPathWaypoints(Node* start, Node* en
             dy = neighbor->y - currNode->y;
 
             // Cost to neighbor node
-            double ncost = currNode->cost + graph.getDist(dx, dy);
+            double ncost = currNode->cost + graph->getDist(dx, dy);
 
             // Check if neighbor is in frontier already and if frontier neighbor has better cost
             bool better_neighbor_in_frontier = false;
@@ -79,7 +79,7 @@ deque<pair<double, double>> PathPlanner::findPathWaypoints(Node* start, Node* en
             if (!better_neighbor_in_frontier){
                 // Search through adjacency list to update the linked list of nodes to the "new" node
                 Node* addToFrontier = new Node{};
-                for (const Node* node : graph.adj_list){
+                for (const Node* node : graph->adj_list){
                     if (node->id == neighbor->id){
                         // Change neighbor to the frontier neighbor (so it has the correct adj nodes)
                         addToFrontier->x = node->x;
@@ -104,7 +104,7 @@ deque<pair<double, double>> PathPlanner::findPathWaypoints(Node* start, Node* en
     }
 
     // To visualize that all nodes in path are only connect_radius away from prev node
-//    pair<double,double> curr = graph.env.getStartPos();
+//    pair<double,double> curr = graph->env->getStartPos();
 //    for (pair<double,double> &point : path){
 //        double dx = point.first - curr.first;
 //        double dy = point.second - curr.second;
@@ -126,8 +126,8 @@ void PathPlanner::printWaypoints(deque<pair<double, double>> path) {
 }
 
 Node* PathPlanner::getStartNode() {
-    pair<double,double> start = graph.env.getStartPos();
-    for(Node *nodePtr : graph.adj_list){
+    pair<double,double> start = graph->env->getStartPos();
+    for(Node *nodePtr : graph->adj_list){
         if(nodePtr->x == start.first && nodePtr->y == start.second){
             return nodePtr;
         }
@@ -136,8 +136,8 @@ Node* PathPlanner::getStartNode() {
 }
 
 Node* PathPlanner::getGoalNode() {
-    pair<double,double> goal = graph.env.getEndPos();
-    for(Node *nodePtr : graph.adj_list){
+    pair<double,double> goal = graph->env->getEndPos();
+    for(Node *nodePtr : graph->adj_list){
         if(nodePtr->x == goal.first && nodePtr->y == goal.second){
             return nodePtr;
         }
